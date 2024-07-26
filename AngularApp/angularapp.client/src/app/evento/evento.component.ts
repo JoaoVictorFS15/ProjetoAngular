@@ -2,6 +2,8 @@
 import { Component, OnInit} from '@angular/core';
 import { EventoService } from '../services/evento.service';
 import { Evento } from '../models/Evento';
+import { ToastrService } from 'ngx-toastr';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-evento',
@@ -21,7 +23,17 @@ export class EventoComponent implements OnInit {
   public mostrar: boolean = true;
   private _filtroLista: string = "";
 
-  constructor(private eventoService: EventoService) {
+  constructor(private eventoService: EventoService, private toastr: ToastrService, private spinner: NgxSpinnerService) {
+  }
+
+
+  public ngOnInit(): void {
+    this.getEventos();
+    this.spinner.show();
+  }
+
+  showSuccess() {
+    this.toastr.success('Evento deletado com sucesso.', 'Sucesso.');
   }
 
   public get filtroLista(): string {
@@ -46,18 +58,15 @@ export class EventoComponent implements OnInit {
 
 
 
-  public ngOnInit(): void {
-    this.getEventos();
-  }
 
   public getEventos(): void {
 
     this.eventoService.getEvento().subscribe(
-      (_evento: Evento[]) => {
+     next: (_evento: Evento[]) => {
         this.evento = _evento;
         this.eventoFiltrados = this.evento;
       },
-      error => console.log(error)
+    error:  error => console.log(error)
     );
     //this.evento = [
     //  {
