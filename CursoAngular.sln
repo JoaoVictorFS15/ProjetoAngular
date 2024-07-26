@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35027.167
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CursoAngular", "CursoAngular\CursoAngular.csproj", "{40446867-6CBD-4A8B-AF73-81B1F67BCA55}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AngularApp.Server", "AngularApp\AngularApp.Server\AngularApp.Server.csproj", "{92D74987-CEFC-46E7-BB1A-2B0FEA53A514}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "angularapp.client", "AngularApp\angularapp.client\angularapp.client.esproj", "{D4998EBA-5C00-47FF-ABE9-A0DC9F426C8A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{40446867-6CBD-4A8B-AF73-81B1F67BCA55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40446867-6CBD-4A8B-AF73-81B1F67BCA55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40446867-6CBD-4A8B-AF73-81B1F67BCA55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40446867-6CBD-4A8B-AF73-81B1F67BCA55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92D74987-CEFC-46E7-BB1A-2B0FEA53A514}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92D74987-CEFC-46E7-BB1A-2B0FEA53A514}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92D74987-CEFC-46E7-BB1A-2B0FEA53A514}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92D74987-CEFC-46E7-BB1A-2B0FEA53A514}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4998EBA-5C00-47FF-ABE9-A0DC9F426C8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4998EBA-5C00-47FF-ABE9-A0DC9F426C8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4998EBA-5C00-47FF-ABE9-A0DC9F426C8A}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{D4998EBA-5C00-47FF-ABE9-A0DC9F426C8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4998EBA-5C00-47FF-ABE9-A0DC9F426C8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4998EBA-5C00-47FF-ABE9-A0DC9F426C8A}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0D659D58-40F0-4363-A515-081A9EFD42E6}
+	EndGlobalSection
+EndGlobal

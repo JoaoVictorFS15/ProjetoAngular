@@ -1,0 +1,23 @@
+<project sdk="microsoft.net.sdk.web">
+
+  <propertygroup>
+    <targetframework>net5.0</targetframework>
+    <sparoot>..\angular.client</sparoot>
+    <spaproxylaunchcommand>npm start</spaproxylaunchcommand>
+    <spaproxyserverurl>https://localhost:4200</spaproxyserverurl>
+  </propertygroup>
+
+  <itemgroup>
+    <packagereference include="microsoft.aspnetcore.spaproxy">
+      <version>5.*-*</version>
+    </packagereference>
+    <packagereference include="swashbuckle.aspnetcore" version="5.6.3" />
+  </itemgroup>
+
+  <itemgroup>
+    <projectreference include="..\angular.client\angular.client.esproj">
+      <referenceoutputassembly>false</referenceoutputassembly>
+    </projectreference>
+  </itemgroup>
+
+</project>
