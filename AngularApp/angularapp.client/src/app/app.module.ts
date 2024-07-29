@@ -12,7 +12,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { AppComponent } from './app.component';
 import { EventoComponent } from './componentes/evento/evento.component';
-import { NavComponent } from './nav/nav.component';
+import { NavComponent } from './shared/nav/nav.component';
 import { EventoService } from './services/evento.service';
 import { DateTimeFormatPipe } from './helpers/date-time-format.pipe';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
