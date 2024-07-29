@@ -17,27 +17,30 @@
 <h2><app-titulo [titulo]="'Eventos'" [iconeClass]="'fa fa-calendar-alt'" [botaoListar]="true"></app-titulo></h2>
 
 <div class="card shadow-sm rounded p-3">
-  <div>
-    <div class="d-flex">
-      <div class="form-group mb-2">
-        <label class="mr-2">Filtro:</label>
-        <input type="text" class="form-control mr-2" placeholder="buscar" [(ngModel)]="filtroLista" />
+  <div class="d-flex">
+    <div class="flex-fill pr-3">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">Filtro:</div>
+        </div>
+        <input type="text" class="form-control mt-2 mb-2 ml-2 mr-2" placeholder="Filtar por tema e local" [(ngModel)]="filtroLista" />
       </div>
+    </div>
+
+
+    <div>
+      <a class="d-flex btn btn-outline-primary" href="#">
+        <i class="fa fa-plus-circle my-1"></i>
+        <b class="ml-1 d-none d-sm-block">Novo</b>
+      </a>
     </div>
   </div>
 
-  <div class="d-flex">
 
-    <a class="d-flex btn btn-outline-primary" href="#">
-      <i class="fa fa-plus-circle my-1"></i>
-      <b class="ml-1 d-none d-sm-block">Novo</b>
-    </a>
-  </div>
-
-  <table class="table table-striped">
+  <table class="table table-striped table-hover" style="cursor:pointer">
     <thead class="table-dark">
       <tr>
-        <th>
+        <th class="d-none d-md-table-cell">
           <button class="btn btn-outline-light btn-sm" type="button" (click)="mostrarImagem()">
             <i class="{{mostrar == false ? 'fa fa-eye' : 'fa fa-eye-slash'}}"></i>
             {{mostrar == false ? 'Exibir' : 'Ocultar'}}
@@ -45,16 +48,16 @@
         </th>
         <th>#</th>
         <th>Tema</th>
-        <th>Local</th>
+        <th class="d-none d-md-table-cell">Local</th>
         <th>Data</th>
-        <th>QTD Pessoas</th>
-        <th>Lote</th>
+        <th class="d-none d-md-table-cell">QTD Pessoas</th>
+        <th class="d-none d-md-table-cell">Lote</th>
         <th>Opções</th>
       </tr>
     </thead>
     <tbody *ngIf="evento && evento.length">
       <tr *ngFor="let item of eventoFiltrados">
-        <td>
+        <td class="d-none d-md-table-cell">
           <img [collapse]="!mostrar"
                [isAnimated]="true"
                src="../../assets/img/{{item.imagemURL}}"
@@ -63,15 +66,15 @@
         </td>
         <td>{{item.id}}</td>
         <td>{{item.tema}}</td>
-        <td>{{item.local}}</td>
+        <td class="d-none d-md-table-cell">{{item.local}}</td>
         <td>{{item.dataEvento | dateTimeFormatPipe}}</td>
-        <td>{{item.qtdPesssoas}}</td>
-        <td>{{item.lote[0].nome}}</td>
+        <td class="d-none d-md-table-cell">{{item.qtdPesssoas}}</td>
+        <td class="d-none d-md-table-cell">{{item.lote[0].nome}}</td>
         <td>
-          <button type="button" class="btn btn-primary btn-sm mr-2" tooltip="Editar" (click)="clicke()">
+          <!--<button type="button" class="btn btn-primary btn-sm mr-2" tooltip="Editar" (click)="clicke()">
             <i class="fa fa-edit"></i>
             Editar
-          </button>
+          </button>-->
           <button type="button" class="btn btn-danger btn-sm" (click)="showSuccess()" tooltip="Excluir">
             <i class="fa fa-trash"></i>
             Excluir
