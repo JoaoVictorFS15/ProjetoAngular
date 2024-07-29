@@ -12,7 +12,7 @@
     <TypeScriptConfiguration Remove="src\app\meu-modal\**" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="src\app\evento\EventoComponent.ts" />
+    <None Remove="src\app\componentes\evento\EventoComponent.ts" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="src\app\helpers\" />

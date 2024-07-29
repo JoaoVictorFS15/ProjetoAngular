@@ -11,13 +11,18 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 import { AppComponent } from './app.component';
-import { EventoComponent } from './evento/evento.component';
+import { EventoComponent } from './componentes/evento/evento.component';
 import { NavComponent } from './nav/nav.component';
 import { EventoService } from './services/evento.service';
 import { DateTimeFormatPipe } from './helpers/date-time-format.pipe';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
+import { TituloComponent } from './shared/titulo/titulo.component';
+import { PalestranteComponent } from './componentes/palestrante/palestrante.component';
+import { ContatosComponent } from './componentes/contatos/contatos.component';
+import { DashboardComponent } from './componentes/dashboard/dashboard.component';
+import { PerfilComponent } from './componentes/perfil/perfil.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +30,11 @@ import { ToastrModule } from 'ngx-toastr';
     EventoComponent,
     NavComponent,
     DateTimeFormatPipe,
+    TituloComponent,
+    PalestranteComponent,
+    ContatosComponent,
+    DashboardComponent,
+    PerfilComponent,
   ],
   imports: [
     BrowserModule,

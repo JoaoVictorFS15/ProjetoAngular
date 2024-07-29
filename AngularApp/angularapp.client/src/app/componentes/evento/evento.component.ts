@@ -1,7 +1,7 @@
 
 import { Component, OnInit} from '@angular/core';
-import { EventoService } from '../services/evento.service';
-import { Evento } from '../models/Evento';
+import { EventoService } from '../../services/evento.service';
+import { Evento } from '../../models/Evento';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 
@@ -61,13 +61,14 @@ export class EventoComponent implements OnInit {
 
   public getEventos(): void {
 
-    this.eventoService.getEvento().subscribe(
-     next: (_evento: Evento[]) => {
+    this.eventoService.getEvento().subscribe({
+      next: (_evento: Evento[]) => {
         this.evento = _evento;
         this.eventoFiltrados = this.evento;
       },
-    error:  error => console.log(error)
-    );
+      error: (erro: any) => { this.spinner.hide(); this.toastr.error("Erro ao carregar eventos", "Error"); },
+      complete: () => this.spinner.hide()
+    });
     //this.evento = [
     //  {
     //    Tema: 'Teste.',
