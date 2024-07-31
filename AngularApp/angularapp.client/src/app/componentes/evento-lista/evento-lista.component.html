@@ -1,26 +1,4 @@
-
-<app-titulo [titulo]="'Eventos'" [iconeClass]="'fa fa-calendar-alt'" [botaoListar]="true"></app-titulo>
-
-<router-outlet></router-outlet>
-
-
-<!--<button (click) ="onclick()">Clique aqui </button>
-<p>
-  {{mensagem}}
-</p>
-
-<div *ngFor="let item of evento">
-
-  <p>
-    Tema: {{item.tema}}
-  </p>
-  <p>
-    Local :{{item.local}}
-  </p>
-  <hr />
-</div>-->
-
-<!--<div class="card shadow-sm rounded p-3">
+<div class="card shadow-sm rounded p-3">
   <div class="d-flex">
     <div class="flex-fill pr-3">
       <div class="input-group">
@@ -33,7 +11,7 @@
 
 
     <div>
-      <a class="d-flex btn btn-outline-primary" (click)="onSubmit()">
+      <a class="d-flex btn btn-outline-primary" routerLink="/eventos/detalhe">
         <i class="fa fa-plus-circle my-1"></i>
         <b class="ml-1 d-none d-sm-block">Novo</b>
       </a>
@@ -60,11 +38,11 @@
       </tr>
     </thead>
     <tbody *ngIf="evento && evento.length">
-      <tr *ngFor="let item of eventoFiltrados">
+      <tr *ngFor="let item of eventoFiltrados" (click)="detalheEvento(item.id)">
         <td class="d-none d-md-table-cell">
           <img [collapse]="!mostrar"
                [isAnimated]="true"
-               src="../../assets/img/{{item.imagemURL}}"
+               src="/assets/{{item.imagemURL}}"
                [style.width.px]="width"
                [style.margin.px]="margin" />
         </td>
@@ -74,12 +52,12 @@
         <td>{{item.dataEvento | dateTimeFormatPipe}}</td>
         <td class="d-none d-md-table-cell">{{item.qtdPesssoas}}</td>
         <td class="d-none d-md-table-cell">{{item.lote[0].nome}}</td>
-        <td>-->
+        <td>
           <!--<button type="button" class="btn btn-primary btn-sm mr-2" tooltip="Editar" (click)="clicke()">
             <i class="fa fa-edit"></i>
             Editar
           </button>-->
-          <!--<button type="button" class="btn btn-danger btn-sm" (click)="showSuccess()" tooltip="Excluir">
+          <button type="button" class="btn btn-danger btn-sm" (click)="showSuccess()" tooltip="Excluir">
             <i class="fa fa-trash"></i>
             Excluir
           </button>
@@ -96,8 +74,4 @@
       </tr>
     </tfoot>
   </table>
-</div>-->
-
-
-<!--<p>{{message}}</p>-->
-
+</div>

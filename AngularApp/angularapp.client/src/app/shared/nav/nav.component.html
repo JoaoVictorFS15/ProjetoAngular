@@ -1,39 +1,44 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
-  <a class="navbar-brand" routerLink="dashboard">Curso Angular</a>
-  <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed"
-        [attr.aria-expanded]="!isCollapsed" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
 
-  <div class="collapse navbar-collapse" [collapse]="isCollapsed" [isAnimated]="true" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link"routerLink="eventos">Eventos <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="palestrantes">Palestrantes</a>
-      </li>
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="contatos">Contato</a>
-      </li>
-    </ul>
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm" *ngIf="showMenu()">
+  <div class="container">
+    <a class="navbar-brand" routerLink="dashboard"><img src="assets\letra-colorida-um-design-de-logotipo-gradiente.png" style="width:40px" /></a>
+    <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed"
+            [attr.aria-expanded]="!isCollapsed" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-    <ul class="navbar-nav mr-5">
-      <li class="nav-item dropdown" dropdown>
-        <a dropdownToggle class="nav-link dropdown-toggle" style="cursor:pointer"  id="navbarDropdownMenuLink" data-toggle="dropdown"
-           aria-haspopup="true" aria-expanded="false">
-          Jão
-        </a>
-        <div *dropdownMenu style="min-width: 5rem;" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" routerLink="perfil">
-            Perfil
+    <div class="collapse navbar-collapse" [collapse]="isCollapsed" [isAnimated]="true" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="eventos">Eventos <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="palestrantes">Palestrantes</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="contatos">Contato</a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav mr-5">
+        <li class="nav-item dropdown" dropdown>
+          <a dropdownToggle class="nav-link dropdown-toggle" style="cursor:pointer" id="navbarDropdownMenuLink" data-toggle="dropdown"
+             aria-haspopup="true" aria-expanded="false">
+            Jão
           </a>
-          <div role="separator" class="divider"></div>
-          <a class="dropdown-item" href="#">
-            Sair
-          </a>
-        </div>
-      </li>
-    </ul>
+          <div *dropdownMenu style="min-width: 5rem;" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" routerLink="user/perfil">
+              Perfil
+            </a>
+            <div role="separator" class="divider"></div>
+            <a class="dropdown-item" routerLink="user/login">
+              Sair
+            </a>
+          </div>
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>
+
+

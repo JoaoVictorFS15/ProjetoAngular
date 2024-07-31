@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { BsDropdownConfig } from 'ngx-bootstrap/dropdown';
 
 @Component({
@@ -13,8 +14,14 @@ export class NavComponent implements OnInit {
 
   isCollapsed = true;
 
+  constructor(private router:Router) { }
+
   ngOnInit(): void {
     
   }
+
+  showMenu(): boolean {
+      return this.router.url !== '/user/login' ;
+  };
 }
 

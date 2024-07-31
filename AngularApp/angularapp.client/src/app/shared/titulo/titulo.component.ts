@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-titulo',
@@ -11,10 +12,17 @@ export class TituloComponent implements OnInit {
   @Input() subtitulo: string = 'Desde ontem';
   @Input() iconeClass: string = 'fa fa-user';
   @Input() botaoListar: boolean = false;
-  constructor() {}
+
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
-      throw new Error('Method not implemented.');
+
+  }
+
+  listar(): void {
+    this.router.navigate([`/${this.titulo.toLowerCase()}/lista`]);
   }
 
 }
+
+
