@@ -6,8 +6,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { InputMaskModule } from '@ngneat/input-mask';
+
 
 
 import { AppComponent } from './app.component';
@@ -28,6 +30,9 @@ import { EventoListaComponent } from './componentes/evento-lista/evento-lista.co
 import { UserComponent } from './componentes/user/user.component';
 import { LoginComponent } from './componentes/user/login/login.component';
 import { CadastroComponent } from './componentes/user/cadastro/cadastro.component';
+
+
+
 
 @NgModule({
   declarations: [
@@ -62,7 +67,9 @@ import { CadastroComponent } from './componentes/user/cadastro/cadastro.componen
       preventDuplicates: true,
       progressBar: true
     }),
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    ReactiveFormsModule,
+    InputMaskModule
    
   ],
   providers: [EventoService],
