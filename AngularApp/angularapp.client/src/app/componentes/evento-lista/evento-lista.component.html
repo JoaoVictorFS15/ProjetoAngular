@@ -51,7 +51,7 @@
         <td class="d-none d-md-table-cell">{{item.local}}</td>
         <td>{{item.dataEvento | dateTimeFormatPipe}}</td>
         <td class="d-none d-md-table-cell">{{item.qtdPesssoas}}</td>
-        <td class="d-none d-md-table-cell">{{item.lote[0].nome}}</td>
+        <td class="d-none d-md-table-cell">{{item.lote[0]?.nome | uppercase}}</td>
         <td>
           <!--<button type="button" class="btn btn-primary btn-sm mr-2" tooltip="Editar" (click)="clicke()">
             <i class="fa fa-edit"></i>

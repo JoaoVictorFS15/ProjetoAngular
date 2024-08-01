@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControlOptions, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ValidarCampo } from '../../../helpers/ValidarCampo';
 
 @Component({
   selector: 'app-cadastro',
@@ -21,6 +22,11 @@ export class CadastroComponent implements OnInit {
   }
 
   public validacao(): void {
+    const formOptions: AbstractControlOptions = {
+      validators: ValidarCampo.mustMatch('senha', 'confirmarSenha')
+    };
+
+
     this.form = this.fb.group({
 
       primeiroNome: ['', Validators.required],
@@ -29,8 +35,7 @@ export class CadastroComponent implements OnInit {
       senha: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(15)]],
       confirmarSenha: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(15)]],
       email: ['', [Validators.required, Validators.email]],
-
-    });
+    }, formOptions);
 
   }
 

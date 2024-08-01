@@ -16,9 +16,9 @@ namespace AngularApp.Server.Repositorio.Services
         {
             _context = context;
         }
-        public async Task<Palestrante[]> GetAllPalestranteByNomeAsync(string nome, bool incluirEvento = false)
+        public async Task<PalestranteDto[]> GetAllPalestranteByNomeAsync(string nome, bool incluirEvento = false)
         {
-            IQueryable<Palestrante> query = _context.Palestrante
+            IQueryable<PalestranteDto> query = _context.Palestrante
                .Include(x => x.RedesSocials);
 
             if (incluirEvento)
@@ -31,9 +31,9 @@ namespace AngularApp.Server.Repositorio.Services
             return await query.ToArrayAsync();
         }
 
-        public async Task<Palestrante[]> GetAllPalestrantesAsync(bool incluirEvento = false)
+        public async Task<PalestranteDto[]> GetAllPalestrantesAsync(bool incluirEvento = false)
         {
-            IQueryable<Palestrante> query = _context.Palestrante
+            IQueryable<PalestranteDto> query = _context.Palestrante
                .Include(x => x.RedesSocials);
 
             if (incluirEvento)
@@ -47,9 +47,9 @@ namespace AngularApp.Server.Repositorio.Services
         }
 
 
-        public async Task<Palestrante> GetPalestrantById(int id, bool incluirEvento = false)
+        public async Task<PalestranteDto> GetPalestrantById(int id, bool incluirEvento = false)
         {
-            IQueryable<Palestrante> query = _context.Palestrante
+            IQueryable<PalestranteDto> query = _context.Palestrante
                 .Include(x => x.RedesSocials);
 
             if (incluirEvento)

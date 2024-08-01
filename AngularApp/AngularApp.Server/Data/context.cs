@@ -9,7 +9,7 @@ namespace AngularApp.Server.Data
 
         public DbSet<Evento> Evento { get; set; }
         public DbSet<PalestranteEvento> PalestranteEvento { get; set; }
-        public DbSet<Palestrante> Palestrante { get; set; }
+        public DbSet<PalestranteDto> Palestrante { get; set; }
         public DbSet<Lote> Lote { get; set; }
         public DbSet<RedeSocial> RedeSocial { get; set; }
 
@@ -21,7 +21,7 @@ namespace AngularApp.Server.Data
 
             modelBuilder.Entity<Evento>().HasMany(x => x.RedeSocials).WithOne( x=> x.Evento).OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<Palestrante>().HasMany(x => x.RedesSocials).WithOne( x=> x.palestrante).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<PalestranteDto>().HasMany(x => x.RedesSocials).WithOne( x=> x.palestrante).OnDelete(DeleteBehavior.Cascade);
         }
 
 

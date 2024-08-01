@@ -1,7 +1,7 @@
-﻿using System.Collections;
+﻿using AngularApp.Server.Models;
 using System.Collections.Generic;
 
-namespace AngularApp.Server.Models
+namespace AngularApp.Server.Dtos
 {
     public class PalestranteDto
     {
@@ -11,8 +11,7 @@ namespace AngularApp.Server.Models
         public string ImagemURL { get; set; }
         public string Telefone { get; set; }
         public string Email { get; set; }
-        public IEnumerable<RedeSocial> RedesSocials { get; set; }
-        public IEnumerable<PalestranteEvento> PalestranteEvento { get; set; }
-
+        public IEnumerable<RedeSocialDto> RedesSocials { get; set; }
+        public IEnumerable<PalestranteEventoDto> PalestranteEvento { get; set; }
     }
 }

@@ -32,7 +32,7 @@
 
         <div class="form-group col-md-4">
           <label>Data e Hora</label>
-          <input type="datetime" [ngClass]="{'is-invalid': f['dataEvento'].errors && f['dataEvento'].touched,  'is-valid': !f['dataEvento'].errors && f['dataEvento'].touched }" class="form-control is-invalid" formControlName="dataEvento" placeholder="">
+          <input type="datetime" [ngClass]="{'is-invalid': f['dataEvento'].errors && f['dataEvento'].touched,  'is-valid': !f['dataEvento'].errors && f['dataEvento'].touched }" class="form-control is-invalid" formControlName="dataEvento" placeholder="" bsDatepicker [bsConfig]=" bsConfig">
           <div *ngIf="f['dataEvento'].errors?.['required']" class="invalid-feedback">
             Campo Obrigatório.
           </div>

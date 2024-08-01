@@ -9,6 +9,9 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { InputMaskModule } from '@ngneat/input-mask';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { defineLocale } from 'ngx-bootstrap/chronos';
+import { ptBrLocale } from 'ngx-bootstrap/locale';
 
 
 
@@ -32,7 +35,7 @@ import { LoginComponent } from './componentes/user/login/login.component';
 import { CadastroComponent } from './componentes/user/cadastro/cadastro.component';
 
 
-
+defineLocale('pt-br', ptBrLocale);
 
 @NgModule({
   declarations: [
@@ -69,7 +72,8 @@ import { CadastroComponent } from './componentes/user/cadastro/cadastro.componen
     }),
     NgxSpinnerModule,
     ReactiveFormsModule,
-    InputMaskModule
+    InputMaskModule,
+    BsDatepickerModule.forRoot()
    
   ],
   providers: [EventoService],

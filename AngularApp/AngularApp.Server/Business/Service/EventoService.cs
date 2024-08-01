@@ -1,31 +1,41 @@
 ﻿using AngularApp.Server.Business.Interface;
+using AngularApp.Server.Dtos;
 using AngularApp.Server.Models;
 using AngularApp.Server.Repositorio.Interface;
+using AutoMapper;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AngularApp.Server.Business.Service
 {
-    public class EventoService : IEventoService, IEventoRepositorio
+    public class EventoService : IEventoService
     {
 
         private readonly IPersitenceRepositorio _persitenceRepositorio;
         private readonly IEventoRepositorio _eventoRepositorio;
+        private readonly IMapper _mapper;
 
-        public EventoService(IPersitenceRepositorio persitenceRepositorio, IEventoRepositorio eventoRepositorio)
+        public EventoService(IPersitenceRepositorio persitenceRepositorio, IEventoRepositorio eventoRepositorio, IMapper mapper)
         {
             _eventoRepositorio = eventoRepositorio;
             _persitenceRepositorio = persitenceRepositorio;
+            _mapper = mapper;
+
         }
-        public async Task<Evento> AddEvento(Evento model)
+        public async Task<EventoDto> AddEvento(EventoDto model)
         {
             try
             {
-                _persitenceRepositorio.Add(model);
+                var retorno = _mapper.Map<Evento>(model); 
+
+                _persitenceRepositorio.Add<Evento>(retorno);
 
                 if (await _persitenceRepositorio.SaveChangesAsync())
                 {
-                    return await _eventoRepositorio.GetEventosById(model.Id, false);
+                    var eve = await _eventoRepositorio.GetEventosById(retorno.Id, false);
+
+                    return _mapper.Map<EventoDto>(eve);
                 }
                 return null;
             }
@@ -52,20 +62,24 @@ namespace AngularApp.Server.Business.Service
                 throw new Exception(e.Message);
             }
         }
-        public async Task<Evento> UpdateEvento(int id, Evento model)
+        public async Task<EventoDto> UpdateEvento(int id, EventoDto model)
         {
             try
             {
                 var evento = await _eventoRepositorio.GetEventosById(id, false);
                 if (evento == null) return null;
 
-                model.Id = evento.Id;
+                var retorno = _mapper.Map<Evento>(model);
 
-                _persitenceRepositorio.Update(model);
+                retorno.Id = evento.Id;
+
+                _persitenceRepositorio.Update(retorno);
 
                 if (await _persitenceRepositorio.SaveChangesAsync())
                 {
-                    return await _eventoRepositorio.GetEventosById(model.Id, false);
+                    var eve = await _eventoRepositorio.GetEventosById(retorno.Id, false);
+
+                    return _mapper.Map<EventoDto>(eve);
                 }
                 return null;
             }
@@ -76,15 +90,16 @@ namespace AngularApp.Server.Business.Service
             }
         }
 
-
-        public async Task<Evento[]> GetAllEventosAsync(bool incluirPalestrante = false)
+        public async Task<EventoDto[]> GetAllEventosAsync(bool incluirPalestrante = false)
         {
             try
             {
                 var eventos = await _eventoRepositorio.GetAllEventosAsync(incluirPalestrante);
 
                 if (eventos == null) return null;
-                return eventos;
+                
+                var retorno = _mapper.Map<EventoDto[]>(eventos);
+                return retorno;
             }
             catch (Exception e) 
             { 
@@ -92,14 +107,16 @@ namespace AngularApp.Server.Business.Service
             }
         }
 
-        public async Task<Evento[]> GetAllEventosByTemaAsync(string tema, bool incluirPalestrante = false)
+        public async Task<EventoDto[]> GetAllEventosByTemaAsync(string tema, bool incluirPalestrante = false)
         {
             try
             {
                 var eventos = await _eventoRepositorio.GetAllEventosByTemaAsync(tema, incluirPalestrante);
 
                 if (eventos == null) return null;
-                return eventos;
+
+                var  retorno = _mapper.Map<EventoDto[]>(eventos);
+                return retorno;
 
             }
             catch (Exception e)
@@ -108,14 +125,17 @@ namespace AngularApp.Server.Business.Service
             }
         }
 
-        public async Task<Evento> GetEventosById(int id, bool incluirPalestrante = false)
+        public async Task<EventoDto> GetEventosById(int id, bool incluirPalestrante = false)
         {
             try
             {
                 var eventos = await _eventoRepositorio.GetEventosById(id, incluirPalestrante);
 
                 if (eventos == null) return null;
-                return eventos;
+
+
+                var retorno = _mapper.Map<EventoDto>(eventos);
+                return retorno;
             }
             catch (Exception e)
             {

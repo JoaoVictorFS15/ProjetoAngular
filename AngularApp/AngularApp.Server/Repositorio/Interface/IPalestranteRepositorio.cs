@@ -6,8 +6,8 @@ namespace AngularApp.Server.Repositorio.Interface
     public interface IPalestranteRepositorio
     {
         //Palestrantes
-        Task<Palestrante[]> GetAllPalestranteByNomeAsync(string nome, bool incluirEvento);
-        Task<Palestrante[]> GetAllPalestrantesAsync(bool incluirEvento);
-        Task<Palestrante> GetPalestrantById(int id, bool incluirEvento);
+        Task<PalestranteDto[]> GetAllPalestranteByNomeAsync(string nome, bool incluirEvento);
+        Task<PalestranteDto[]> GetAllPalestrantesAsync(bool incluirEvento);
+        Task<PalestranteDto> GetPalestrantById(int id, bool incluirEvento);
     }
 }
