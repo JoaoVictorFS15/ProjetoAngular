@@ -121,7 +121,7 @@ namespace AngularApp.Server.Controllers
             }
         }
 
-        [HttpPost("{id}")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> AtualizarEvento(int id, EventoDto model)
         {
             try
@@ -148,7 +148,7 @@ namespace AngularApp.Server.Controllers
         {
             try
             {
-                return await _eventoService.DeleteEvento(id) ? Ok("Evento deletado") : throw new Exception("Erro ao tentar deletar evento.");
+                return await _eventoService.DeleteEvento(id) ? Ok( new { mensagem = "Evento deletado" }) : throw new Exception("Erro ao tentar deletar evento.");
             }
             catch (Exception ex)
             {

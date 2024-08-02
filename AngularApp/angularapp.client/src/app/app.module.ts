@@ -12,6 +12,7 @@ import { InputMaskModule } from '@ngneat/input-mask';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { ptBrLocale } from 'ngx-bootstrap/locale';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 
 
 
@@ -65,7 +66,7 @@ defineLocale('pt-br', ptBrLocale);
     TooltipModule.forRoot(),
     NgbModule,
     ToastrModule.forRoot({
-      timeOut: 10000,
+      timeOut: 5000,
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
       progressBar: true
@@ -73,10 +74,11 @@ defineLocale('pt-br', ptBrLocale);
     NgxSpinnerModule,
     ReactiveFormsModule,
     InputMaskModule,
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(),
+    NgxMaskDirective
    
   ],
-  providers: [EventoService],
+  providers: [EventoService, provideNgxMask()],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })

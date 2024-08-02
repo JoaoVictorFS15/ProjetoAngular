@@ -4,6 +4,7 @@ import { EventoService } from '../../services/evento.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-evento-lista',
@@ -13,7 +14,9 @@ import { Router } from '@angular/router';
 export class EventoListaComponent {
 
   public evento: Evento[] = [];
+
   public eventoFiltrados: Evento[] = [];
+  public eventoId: number = 0;
 
   message?: string;
 
@@ -21,8 +24,7 @@ export class EventoListaComponent {
   public margin: number = 2;
   public mostrar: boolean = true;
   private _filtroLista: string = "";
-  dataEvento1: Date = new Date();
-  event = { local: 'TesteNovo', dataEvento: this.dataEvento1, tema: 'testeNovo', qtdPesssoas: 5, imagemURL: 'nova.png', telefone: '(21)3021-2035', Email: 'novo@novo.com' };
+
 
   constructor(private eventoService: EventoService, private toastr: ToastrService, private spinner: NgxSpinnerService, private router: Router) {
   }
@@ -31,10 +33,6 @@ export class EventoListaComponent {
   public ngOnInit(): void {
     this.getEventos();
     this.spinner.show();
-  }
-
-  showSuccess() {
-    this.toastr.success('Evento deletado com sucesso.', 'Sucesso.');
   }
 
   public get filtroLista(): string {
@@ -58,7 +56,42 @@ export class EventoListaComponent {
   }
 
 
+  showSuccess(event: any, eventoId: number) {
+    event.stopPropagation();
+    this.eventoId = eventoId;
+    Swal.fire({
+      title: 'Tem certeza?',
+      text: `Você tem certeza que deseja excluir o evento de codigo ${this.eventoId}?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim, excluir!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.spinner.show();
+        this.eventoService.delete(this.eventoId).subscribe({
+          next: (resultado: any) => {
+            if (resultado.mensagem == "Evento deletado") {
+            this.spinner.hide();
+            this.toastr.success('Evento deletado com sucesso.', 'Sucesso.');
+              this.getEventos();
+            }
+          },
+          error: (erro: any) => {
+            this.spinner.hide();
+            this.toastr.error(`Erro ao deletar evento ${this.eventoId}`, "Error");
+          },
+          complete: () => {
+            this.spinner.hide();
+          }
+        });
 
+        // Aqui você pode colocar a lógica para excluir o item
+      }
+    });
+  }
 
   public getEventos(): void {
 
@@ -94,10 +127,6 @@ export class EventoListaComponent {
 
   public mostrarImagem(): void {
     this.mostrar = !this.mostrar;
-  }
-
-  public onSubmit() {
-    this.eventoService.createEvent(this.event).subscribe(response => { console.log('sla'); });
   }
 
   detalheEvento(id: any) {

@@ -56,7 +56,7 @@
 
         <div class="form-group col-md-2">
           <label>Telefone</label>
-          <input type="text" [ngClass]="{'is-invalid': f['telefone'].errors && f['telefone'].touched,  'is-valid': !f['telefone'].errors && f['telefone'].touched }" class="form-control" formControlName="telefone" placeholder="(00)90000-0000">
+          <input type="text" [ngClass]="{'is-invalid': f['telefone'].errors && f['telefone'].touched,  'is-valid': !f['telefone'].errors && f['telefone'].touched }" class="form-control" formControlName="telefone" placeholder="(00)90000-0000" mask="(00)00000-0000">
           <div *ngIf="f['telefone'].errors?.['required']" class="invalid-feedback">
             Campo Obrigatório.
           </div>
@@ -91,7 +91,7 @@
         <button class="btn btn-outline-danger mr-auto border" (click)="reset()">
           Cancelar
         </button>
-        <button class="btn btn-success" [disabled]="!form.valid">
+        <button class="btn btn-success" [disabled]="!form.valid"  (click)="salvar()">
           <!--<span class="spinner-border spinner-border-sm mr-1"></span>-->
           Salvar Evento
         </button>
