@@ -3,12 +3,14 @@ using AngularApp.Server.Business.Service;
 using AngularApp.Server.Data;
 using AngularApp.Server.Dtos;
 using AngularApp.Server.Models;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
@@ -20,6 +22,7 @@ namespace AngularApp.Server.Controllers
     public class EventoController : ControllerBase
     {
         private readonly IEventoService _eventoService;
+        private readonly IWebHostEnvironment _hostEnvironment;
 
         //public IEnumerable<Evento> Eventos = new List<Evento>() {
 
@@ -48,9 +51,10 @@ namespace AngularApp.Server.Controllers
         //    }
         //};
 
-        public EventoController(IEventoService eventoService)
+        public EventoController(IEventoService eventoService, IWebHostEnvironment hostEnvironment)
         {
             this._eventoService = eventoService;
+            this._hostEnvironment = hostEnvironment;
         }
 
         [HttpGet]
@@ -93,6 +97,34 @@ namespace AngularApp.Server.Controllers
             {
                 var evento = await _eventoService.GetAllEventosByTemaAsync(tema, true);
                 if (evento == null) return NoContent();
+
+                return Ok(evento);
+            }
+            catch (Exception ex)
+            {
+
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao recuperar Eventos. Error: {ex.Message}");
+            }
+        }
+
+
+        [HttpPost("upload-image/{eventoId}")]
+        public async Task<IActionResult> UploadImage(int eventoId)
+        {
+            try
+            {
+                var evento = await _eventoService.GetEventosById(eventoId, true);
+                if (evento == null) return BadRequest("Erro ao tentar adicionar evento.");
+
+                var file = Request.Form.Files[0];
+
+                if (file.Length > 0)
+                {
+                    DeletarImagem(evento.ImagemURL);
+                    evento.ImagemURL = await SalvarImagem(file);
+                }
+
+                var eventoRetorno = await _eventoService.UpdateEvento(eventoId, evento);
 
                 return Ok(evento);
             }
@@ -148,7 +180,7 @@ namespace AngularApp.Server.Controllers
         {
             try
             {
-                return await _eventoService.DeleteEvento(id) ? Ok( new { mensagem = "Evento deletado" }) : throw new Exception("Erro ao tentar deletar evento.");
+                return await _eventoService.DeleteEvento(id) ? Ok(new { mensagem = "Evento deletado" }) : throw new Exception("Erro ao tentar deletar evento.");
             }
             catch (Exception ex)
             {
@@ -156,6 +188,29 @@ namespace AngularApp.Server.Controllers
             }
         }
 
+        [NonAction]
+        private void DeletarImagem(string imagemURL)
+        {
+            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, @"Resources/images", imagemURL);
+            if (System.IO.File.Exists(imagePath)) System.IO.File.Delete(imagePath);
+        }
 
+        [NonAction]
+        private async Task<string> SalvarImagem(IFormFile imagemURL)
+        {
+
+            var imageName = new string(Path.GetFileNameWithoutExtension(imagemURL.FileName).Take(10).ToArray()).Replace(" ", "-");
+
+            imageName = $"{imageName}{DateTime.UtcNow.ToString("yymmssfff")}{Path.GetExtension(imagemURL.FileName)}";
+
+            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, @"Resources/images", imageName);
+
+            using (var fileStream = new FileStream(imagePath, FileMode.Create))
+            {
+                await imagemURL.CopyToAsync(fileStream);
+            }
+
+            return imageName;
+        }
     }
 }

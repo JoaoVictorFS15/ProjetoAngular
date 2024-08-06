@@ -23,6 +23,7 @@
     "@angular/router": "^18.1.0",
     "imask": "^7.6.1",
     "jest-editor-support": "*",
+    "ngx-currency": "^18.0.0",
     "ngx-mask": "^18.0.0",
     "run-script-os": "*",
     "rxjs": "~7.8.0",

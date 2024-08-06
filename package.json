@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.6.0",
+    "ngx-currency": "^18.0.0",
     "ngx-mask": "^18.0.0"
   }
 }

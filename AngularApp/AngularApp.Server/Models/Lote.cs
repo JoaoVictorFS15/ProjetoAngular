@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AngularApp.Server.Models
 {
@@ -10,6 +11,8 @@ namespace AngularApp.Server.Models
         public DateTime? DataInicio { get; set; }
         public DateTime? DataFim { get; set; }
         public int Quantidade { get; set; }
+
+        [ForeignKey("Evento")]
         public int EventoId { get; set; }
         public Evento Evento { get; set; }
     }

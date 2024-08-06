@@ -87,8 +87,6 @@ export class EventoListaComponent {
             this.spinner.hide();
           }
         });
-
-        // Aqui você pode colocar a lógica para excluir o item
       }
     });
   }

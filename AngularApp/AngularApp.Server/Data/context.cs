@@ -22,6 +22,11 @@ namespace AngularApp.Server.Data
             modelBuilder.Entity<Evento>().HasMany(x => x.RedeSocials).WithOne( x=> x.Evento).OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<PalestranteDto>().HasMany(x => x.RedesSocials).WithOne( x=> x.palestrante).OnDelete(DeleteBehavior.Cascade);
+            
+            modelBuilder.Entity<Lote>()
+           .HasOne(l => l.Evento)
+           .WithMany(e => e.Lote)
+           .HasForeignKey(l => l.EventoId);
         }
 
 

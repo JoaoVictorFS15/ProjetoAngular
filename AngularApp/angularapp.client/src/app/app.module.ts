@@ -13,6 +13,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { ptBrLocale } from 'ngx-bootstrap/locale';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
+import { NgxCurrencyDirective, provideEnvironmentNgxCurrency, NgxCurrencyInputMode } from 'ngx-currency';
 
 
 
@@ -34,6 +35,7 @@ import { EventoListaComponent } from './componentes/evento-lista/evento-lista.co
 import { UserComponent } from './componentes/user/user.component';
 import { LoginComponent } from './componentes/user/login/login.component';
 import { CadastroComponent } from './componentes/user/cadastro/cadastro.component';
+import { LoteService } from './services/lote.service';
 
 
 defineLocale('pt-br', ptBrLocale);
@@ -75,10 +77,24 @@ defineLocale('pt-br', ptBrLocale);
     ReactiveFormsModule,
     InputMaskModule,
     BsDatepickerModule.forRoot(),
-    NgxMaskDirective
+    NgxMaskDirective,
+    NgxCurrencyDirective
    
   ],
-  providers: [EventoService, provideNgxMask()],
+  providers: [EventoService, provideNgxMask(), LoteService, provideEnvironmentNgxCurrency({
+    align: "right",
+    allowNegative: true,
+    allowZero: true,
+    decimal: ",",
+    precision: 2,
+    prefix: "R$ ",
+    suffix: "",
+    thousands: ".",
+    nullable: true,
+    min: null,
+    max: null,
+    inputMode: NgxCurrencyInputMode.Financial,
+  })],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })

@@ -18,6 +18,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
+using Microsoft.AspNetCore.Http;
 
 namespace AngularApp.Server
 {
@@ -42,6 +45,8 @@ namespace AngularApp.Server
             services.AddScoped<IEventoService, EventoService>();
             services.AddScoped<IPersitenceRepositorio, PersitenceRepositorioService>();
             services.AddScoped<IEventoRepositorio, EventoRepositorioService>();
+            services.AddScoped<ILoteRepositotio, LoteRepositorioService>();
+            services.AddScoped<ILoteService, LoteService>();
 
 
             services.AddCors();
@@ -68,6 +73,11 @@ namespace AngularApp.Server
             app.UseAuthorization();
 
            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+
+            app.UseStaticFiles(new StaticFileOptions() {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Resources")),
+                RequestPath = new PathString("/Resources")
+            });
 
             app.UseEndpoints(endpoints =>
             {

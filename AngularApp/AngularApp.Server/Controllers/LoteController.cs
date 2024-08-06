@@ -12,12 +12,11 @@ namespace AngularApp.Server.Controllers
     public class LoteController : ControllerBase
     {
         private readonly ILoteService _loteService;
-        private readonly IEventoService _eventoService;
+
 
         public LoteController(ILoteService loteService, IEventoService eventoService)
         {
             this._loteService = loteService;
-            _eventoService = eventoService;
         }
 
         [HttpGet("{eventoId}")]
@@ -25,23 +24,23 @@ namespace AngularApp.Server.Controllers
         {
             try
             {
-                var eventos = await _eventoService.GetEventosById(eventoId,true);
-                if (eventos == null) return NoContent();
+                var lotes = await _loteService.GetlotesByEventoIdAsync(eventoId);
+                if (lotes == null) return NoContent();
 
-                return Ok(eventos);
+                return Ok(lotes);
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao recuperar Eventos. Error: {ex.Message}");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao recuperar lotes. Error: {ex.Message}");
             }
         }
 
         [HttpPut("{eventoId}")]
-        public async Task<IActionResult> AtualizarEvento(int eventoId, EventoDto model)
+        public async Task<IActionResult> SaveLotes(int eventoId, LoteDto[] model)
         {
             try
             {
-                var evento = await _eventoService.UpdateEvento(eventoId, model);
+                var evento = await _loteService.SaveLote(eventoId, model);
 
                 if (evento == null) return BadRequest("Erro ao tentar atualizar evento.");
 
@@ -50,20 +49,25 @@ namespace AngularApp.Server.Controllers
             catch (Exception ex)
             {
 
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao atualizar Eventos. Error: {ex.Message}");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar salvar lotes. Error: {ex.Message}");
             }
         }
 
         [HttpDelete("{eventoId}/{loteId}")]
-        public async Task<IActionResult> DeleteEvento(int eventoId, int loteId)
+        public async Task<IActionResult> Delete(int eventoId, int loteId)
         {
             try
             {
-                return await _eventoService.DeleteEvento(eventoId) ? Ok(new { mensagem = "Evento deletado" }) : throw new Exception("Erro ao tentar deletar evento.");
+                var lote = await _loteService.GetLoteById(eventoId, loteId);
+                if (lote == null) return Ok(new { mensagem = "lote null" });
+
+                return await _loteService.DeleteEvento(lote.EventoId, lote.Id) 
+                    ? Ok(new { mensagem = "Lote deletado" }) 
+                    : throw new Exception("Erro ao tentar deletar lote.");
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao recuperar Eventos. Error: {ex.Message}");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao recuperar lotes. Error: {ex.Message}");
             }
         }
 
