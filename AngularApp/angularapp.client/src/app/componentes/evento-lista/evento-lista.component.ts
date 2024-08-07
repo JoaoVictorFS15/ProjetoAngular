@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-evento-lista',
@@ -20,7 +21,7 @@ export class EventoListaComponent {
 
   message?: string;
 
-  public width: number = 50;
+  public width: number = 200;
   public margin: number = 2;
   public mostrar: boolean = true;
   private _filtroLista: string = "";
@@ -129,6 +130,10 @@ export class EventoListaComponent {
 
   detalheEvento(id: any) {
     this.router.navigate([`eventos/detalhe/${id}`]);
+  }
+
+  mostrarImagemURL(imagem: string): string {
+    return (imagem !== "") ? `${environment.apiUrl}resources/images/${imagem}` : 'assets/semImagem.jpg';
   }
 
 }

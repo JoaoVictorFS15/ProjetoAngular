@@ -180,7 +180,19 @@ namespace AngularApp.Server.Controllers
         {
             try
             {
-                return await _eventoService.DeleteEvento(id) ? Ok(new { mensagem = "Evento deletado" }) : throw new Exception("Erro ao tentar deletar evento.");
+
+                var evento = await _eventoService.GetEventosById(id, true);
+
+                if (await _eventoService.DeleteEvento(id)) {
+                    DeletarImagem(evento.ImagemURL);
+                   return Ok(new { mensagem = "Evento deletado" }); 
+                    
+                }
+                else
+                {
+                 throw new Exception("Erro ao tentar deletar evento.");
+                }
+                
             }
             catch (Exception ex)
             {

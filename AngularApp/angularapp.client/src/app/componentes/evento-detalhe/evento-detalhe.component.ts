@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Lote } from '../../models/Lote';
 import { LoteService } from '../../services/lote.service';
 import Swal from 'sweetalert2';
+import { environment } from '../../../environments/environment';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class EventoDetalheComponent implements OnInit {
   loteAtual = { id: 0, nome: '', indice: 0 }
 
   imagemURL = "/assets/upload.jpg";
-
+  file!: File;
 
   get editar(): boolean {
     return this.estadoSalvar === 'put';
@@ -84,6 +85,11 @@ export class EventoDetalheComponent implements OnInit {
         next: (evento: Evento) => {
           this.evento = { ...evento };
           this.form.patchValue(this.evento);
+
+          if (this.evento.imagemURL !== '') {
+            this.imagemURL = environment.apiUrl + 'resources/images/' + this.evento.imagemURL;
+          }
+
           this.carregarLotes()
 
           //this.evento.lote.forEach(lote => {
@@ -123,7 +129,7 @@ export class EventoDetalheComponent implements OnInit {
       dataEvento: ['', Validators.required],
       tema: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
       qtdPesssoas: ['', [Validators.required, Validators.max(100000)]],
-      imagemURL: ['', Validators.required],
+      imagemURL: [''],
       telefone: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       lotes: this.fb.array([]),
@@ -283,7 +289,22 @@ export class EventoDetalheComponent implements OnInit {
 
     reader.onload = (event: any) => this.imagemURL = event.target.result;
 
-    const file = evento.target.files[0];
-    reader.readAsDataURL(file);
+    this.file = evento.target.files[0];
+    reader.readAsDataURL(this.file);
+    this.uploadImagem();
+  }
+
+  public uploadImagem(): void {
+    this.spinner.show();
+    this.eventoService.uploadImage(this.eventoId, this.file).subscribe(
+      () => {
+        this.carregarEvento();
+        this.toast.success("Imagem atualizada com sucesso.", "Sucesso");
+      },
+      (error: any) => {
+        this.toast.error("Erro ao fazer o upload da imagem.", "Erro");
+      }
+    ).add(() => this.spinner.hide());
+
   }
 }

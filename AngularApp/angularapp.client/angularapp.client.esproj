@@ -18,5 +18,6 @@
     <Folder Include="src\app\helpers\" />
     <Folder Include="src\app\util\" />
     <Folder Include="src\assets\img\" />
+    <Folder Include="src\environments\" />
   </ItemGroup>
 </Project>

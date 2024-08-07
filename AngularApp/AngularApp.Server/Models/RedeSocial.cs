@@ -11,6 +11,6 @@ namespace AngularApp.Server.Models
         public int? EventoId { get; set; }
         public Evento Evento { get; set; }
         public int? PalestranteId { get; set; }
-        public PalestranteDto palestrante { get; set; }
+        public Palestrante palestrante { get; set; }
     }
 }
